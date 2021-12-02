@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "541386855865",
+    "project_id": "beercatalogue-f128c",
+    "storage_bucket": "beercatalogue-f128c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541386855865:android:9dd3a29b11f78d782a9268",
+        "android_client_info": {
+          "package_name": "com.blaj.beercatalogue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541386855865-l2s3iunsggqp3v5e6p2hn6j0ti6b59u1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDskNpc3yN2NX-2uhj5Y5WkuTwiVuaM_D0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541386855865-l2s3iunsggqp3v5e6p2hn6j0ti6b59u1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
