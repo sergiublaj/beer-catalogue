@@ -36,7 +36,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/login_username"
+        android:id="@+id/login_email"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:translationY="-50dp"
@@ -49,7 +49,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username"
+            android:hint="@string/email"
             android:inputType="text"
             android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -59,12 +59,12 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:translationX="0dp"
-        android:translationY="-25dp"
+        android:translationY="-195dp"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/login_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_username"
+        app:layout_constraintTop_toBottomOf="@+id/login_email"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -76,31 +76,18 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/login"
         android:layout_width="351dp"
         android:layout_height="57dp"
         android:background="?android:attr/colorActivatedHighlight"
+        android:onClick="loginUser"
         android:text="@string/log_in"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.643" />
-
-    <TextView
-        android:id="@+id/register_text"
-        android:layout_width="220dp"
-        android:layout_height="40dp"
-        android:text="@string/register_text"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.219"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.635" />
 
     <TextView
         android:id="@+id/register_button"
@@ -108,16 +95,41 @@
         android:layout_height="41dp"
         android:onClick="proceedToRegister"
         android:text="@string/register_button"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/register_text"
-        app:layout_constraintTop_toBottomOf="@+id/login_button"
-        app:layout_constraintVertical_bias="0.13"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:layout_constraintVertical_bias="0.087"
         tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/register_text"
+        android:layout_width="260dp"
+        android:layout_height="41dp"
+        android:text="@string/register_text"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:layout_constraintVertical_bias="0.087" />
+
+    <ProgressBar
+        android:id="@+id/login_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/infoButton"
@@ -132,11 +144,8 @@
         app:layout_constraintHorizontal_bias="0.881"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.915"
+        app:layout_constraintVertical_bias="0.922"
         app:maxImageSize="50dp"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
