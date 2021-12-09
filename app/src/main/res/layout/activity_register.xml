@@ -39,7 +39,7 @@
         android:id="@+id/register_username"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:translationY="-55dp"
+        android:translationY="-65dp"
         app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,9 +58,9 @@
         android:id="@+id/register_email"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:translationY="10dp"
+        android:translationY="0dp"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/register_age"
+        app:layout_constraintBottom_toTopOf="@+id/register_birthdate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_username">
@@ -75,10 +75,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_age"
+        android:id="@+id/register_birthdate"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:translationY="75dp"
+        android:translationY="65dp"
         app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="@+id/register_password"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,9 +88,30 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/age"
+            android:hint="@string/birthdate"
+            android:inputType="date"
+            android:textSize="20sp"
+            android:onClick="setBirthdate"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_photo"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:translationY="130dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="@+id/register_birthdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/register_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/photo"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="setPhoto" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -98,11 +119,11 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:translationX="0dp"
-        android:translationY="140dp"
+        android:translationY="195dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/register_age"
+        app:layout_constraintTop_toTopOf="@+id/register_birthdate"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -118,28 +139,28 @@
         android:id="@+id/register"
         android:layout_width="351dp"
         android:layout_height="57dp"
-        android:layout_marginEnd="28dp"
         android:background="?android:attr/colorActivatedHighlight"
         android:onClick="registerUser"
         android:text="@string/register"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.811" />
+        app:layout_constraintVertical_bias="0.882" />
 
     <TextView
         android:id="@+id/login_text"
         android:layout_width="253dp"
         android:layout_height="47dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:text="@string/login_text"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.909" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <TextView
         android:id="@+id/login_button"
@@ -153,10 +174,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/login_text"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.901"
+        app:layout_constraintVertical_bias="0.968"
         tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
     <ProgressBar

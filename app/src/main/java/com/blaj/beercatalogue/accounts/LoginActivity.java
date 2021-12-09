@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.blaj.beercatalogue.R;
-import com.blaj.beercatalogue.about.InfoActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -57,12 +56,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (password.length() < 6) {
-            passwordField.setError("Please insert a longer password!");
-            passwordField.requestFocus();
-            return;
-        }
-
         progressBar.setVisibility(View.VISIBLE);
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -75,15 +68,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     Toast.makeText(LoginActivity.this, "Successfully logged in!", Toast.LENGTH_SHORT).show();
-                    proceedToAbout(view);
+                    startActivity(new Intent(this.getApplicationContext(), UserActivity.class));
                 });
     }
 
     public void proceedToRegister(View view) {
         startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
-    }
-
-    public void proceedToAbout(View view) {
-        startActivity(new Intent(this.getApplicationContext(), InfoActivity.class));
     }
 }
