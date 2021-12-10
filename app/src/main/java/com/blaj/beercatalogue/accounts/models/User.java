@@ -5,7 +5,6 @@ import android.net.Uri;
 public class User {
     private final String username;
     private final String email;
-
     private final Uri photo;
 
     public User(String username, String email, Uri photo) {

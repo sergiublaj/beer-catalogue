@@ -1,4 +1,4 @@
-package com.blaj.beercatalogue.ui;
+package com.blaj.beercatalogue.about.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,16 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.blaj.beercatalogue.databinding.FragmentBeerlistBinding;
+import com.blaj.beercatalogue.databinding.FragmentAboutBinding;
 
-public class BeerlistFragment extends Fragment {
+public class AboutFragment extends Fragment {
 
-    private FragmentBeerlistBinding binding;
+    private FragmentAboutBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentBeerlistBinding.inflate(inflater, container, false);
+        binding = FragmentAboutBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.blaj.beercatalogue.ui.ProfileFragment"
+        android:name="com.blaj.beercatalogue.accounts.ui.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_beerist"
-        android:name="com.blaj.beercatalogue.ui.BeerlistFragment"
+        android:id="@+id/nav_beerlist"
+        android:name="com.blaj.beercatalogue.beerlist.ui.BeerlistFragment"
         android:label="@string/menu_beerlist"
         tools:layout="@layout/fragment_beerlist" />
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.blaj.beercatalogue.ui.AboutFragment"
+        android:name="com.blaj.beercatalogue.about.ui.AboutFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about" />
 </navigation>

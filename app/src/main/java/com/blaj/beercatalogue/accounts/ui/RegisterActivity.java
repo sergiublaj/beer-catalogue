@@ -1,4 +1,4 @@
-package com.blaj.beercatalogue.accounts;
+package com.blaj.beercatalogue.accounts.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;

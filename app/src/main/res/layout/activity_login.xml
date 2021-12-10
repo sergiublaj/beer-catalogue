@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".accounts.LoginActivity">
+    tools:context=".accounts.ui.LoginActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -124,8 +124,8 @@
     <ProgressBar
         android:id="@+id/login_progress_bar"
         style="?android:attr/progressBarStyle"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

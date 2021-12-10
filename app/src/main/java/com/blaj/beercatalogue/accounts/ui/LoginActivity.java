@@ -1,4 +1,4 @@
-package com.blaj.beercatalogue.accounts;
+package com.blaj.beercatalogue.accounts.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -9,7 +9,7 @@
             android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_beerist"
+            android:id="@+id/nav_beerlist"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_beerlist" />
         <item

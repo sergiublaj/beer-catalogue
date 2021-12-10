@@ -37,5 +37,8 @@
 
     <string name="user_name">Name:</string>
     <string name="user_email">Email:</string>
+    <string name="beer_rating_text">Rating:</string>
+    <string name="search_title">Looking for a specific beer?</string>
+    <string name="search">Search</string>
 
 </resources>

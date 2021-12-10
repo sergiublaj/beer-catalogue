@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BeerCatalogue">
         <activity
-            android:name=".accounts.UserActivity"
+            android:name=".accounts.ui.UserActivity"
             android:exported="true"
             android:label="@string/title_activity_user"
             android:theme="@style/Theme.BeerCatalogue.NoActionBar" />
         <activity
-            android:name=".accounts.LoginActivity"
+            android:name=".accounts.ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,13 +26,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".accounts.RegisterActivity"
+            android:name=".accounts.ui.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".about.InfoActivity"
-            android:exported="true"
-            android:label="@string/title_activity_info"
-            android:theme="@style/Theme.BeerCatalogue.NoActionBar" />
+            android:name=".beerlist.ui.BeerActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
