@@ -24,8 +24,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -151,8 +149,8 @@ public class RegisterActivity extends AppCompatActivity {
                         return;
                     }
 
-                    User user = new User(username, email, userPhoto);
                     FirebaseUser loggedUser = FirebaseAuth.getInstance().getCurrentUser();
+                    User user = new User(Objects.requireNonNull(loggedUser).getUid(), username, email, null);
                     FirebaseDatabase.getInstance(UserActivity.DATABASE_URL).getReference("Users")
                             .child(Objects.requireNonNull(loggedUser).getUid())
                             .setValue(user).addOnCompleteListener(task2 -> {
@@ -162,9 +160,16 @@ public class RegisterActivity extends AppCompatActivity {
                             return;
                         }
 
-                        StorageReference storageReference = FirebaseStorage.getInstance(UserActivity.DATABASE_URL).getReference();
-                        StorageReference fileReference = storageReference.child("users/" + loggedUser.getUid() + "/avatar.png");
-                        fileReference.putFile(userPhoto);
+//                        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+//                        StorageReference fileReference = storageReference.child("users/" + username + ".png");
+//                        fileReference.putFile(userPhoto);
+//
+//                        try {
+//                            Bitmap photo = Picasso.get().load(userPhoto).get();
+//                            user.setPhoto(photo);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
 
                         Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
                         firebaseAuth.signInWithEmailAndPassword(email, password);

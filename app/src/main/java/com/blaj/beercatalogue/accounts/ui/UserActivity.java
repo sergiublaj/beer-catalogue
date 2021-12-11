@@ -17,19 +17,18 @@ import com.blaj.beercatalogue.accounts.repository.UserRepository;
 import com.blaj.beercatalogue.beerlist.repository.BeerRepository;
 import com.blaj.beercatalogue.beerlist.service.BeerListAdapter;
 import com.blaj.beercatalogue.databinding.ActivityUserBinding;
+import com.blaj.beercatalogue.reviews.repository.ReviewRepository;
 import com.google.android.material.navigation.NavigationView;
 
 public class UserActivity extends AppCompatActivity {
     public static final String DATABASE_URL = "https://beercatalogue-f128c-default-rtdb.europe-west1.firebasedatabase.app";
 
     private AppBarConfiguration mAppBarConfiguration;
-    public static final BeerListAdapter beerListAdapter = new BeerListAdapter(BeerRepository.getInstance().getBeerList());
+    public static BeerListAdapter beerListAdapter = new BeerListAdapter(BeerRepository.getInstance().getBeerList());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getUserAndBeers();
 
         ActivityUserBinding binding = ActivityUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -44,12 +43,16 @@ public class UserActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_user);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        fetchDatabase();
     }
 
-    private void getUserAndBeers() {
+    private void fetchDatabase() {
         UserRepository.getInstance();
 
         BeerRepository.getInstance();
+
+        ReviewRepository.getInstance();
     }
 
     @Override

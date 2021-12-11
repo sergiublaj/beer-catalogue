@@ -40,5 +40,8 @@
     <string name="beer_rating_text">Rating:</string>
     <string name="search_title">Looking for a specific beer?</string>
     <string name="search">Search</string>
+    <string name="reviews_none">No reviews yet.</string>
+    <string name="reviews_all">Users\' reviews</string>
+    <string name="reviews_user">Your reviews</string>
 
 </resources>

@@ -11,21 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blaj.beercatalogue.R;
 
 public class BeerListViewHolder extends RecyclerView.ViewHolder {
-    private final BeerListAdapter beerListAdapter;
     private final ImageView beerPhoto;
     private final TextView beerName;
     private final TextView beerType;
     private final RatingBar beerRating;
 
-    public BeerListViewHolder(@NonNull View itemView, BeerListAdapter beerListAdapter) {
+    public BeerListViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        this.beerListAdapter = beerListAdapter;
-
-        beerPhoto = itemView.findViewById(R.id.beer_photo);
-        beerName = itemView.findViewById(R.id.beer_name);
-        beerType = itemView.findViewById(R.id.beer_type);
-        beerRating = itemView.findViewById(R.id.beer_rating);
+        beerPhoto = itemView.findViewById(R.id.reviewitem_photo);
+        beerName = itemView.findViewById(R.id.reviewitem_title);
+        beerType = itemView.findViewById(R.id.reviewitem_comment);
+        beerRating = itemView.findViewById(R.id.reviewitem_rating);
     }
 
     public ImageView getBeerPhoto() {

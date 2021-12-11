@@ -7,7 +7,26 @@
     android:background="@drawable/beer_background"
     tools:context=".accounts.ui.ProfileFragment">
 
+    <TextView
+        android:id="@+id/profile_review_title"
+        android:layout_width="382dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="364dp"
+        android:fontFamily="sans-serif-black"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:translationY="-25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintVertical_bias="0.0" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_marginBottom="440dp"
@@ -18,11 +37,13 @@
 
         <ImageView
             android:id="@+id/profile_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:translationX="140dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:translationX="130dp"
             android:translationY="80dp"
-            tools:src="@tools:sample/avatars" />
+            app:srcCompat="@drawable/ic_menu_camera"
+            tools:src="@tools:sample/avatars"
+            tools:srcCompat="@drawable/ic_menu_camera" />
 
         <TextView
             android:id="@+id/profile_name"
@@ -32,7 +53,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:translationX="5dp"
-            android:translationY="220dp" />
+            android:translationY="230dp" />
 
         <TextView
             android:id="@+id/profile_email"
@@ -55,5 +76,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_reviewlist"
+        android:layout_width="410dp"
+        android:layout_height="376dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_review_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

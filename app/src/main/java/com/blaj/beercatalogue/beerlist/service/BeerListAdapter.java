@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blaj.beercatalogue.R;
 import com.blaj.beercatalogue.beerlist.model.Beer;
 import com.blaj.beercatalogue.beerlist.ui.BeerActivity;
-import com.squareup.picasso.Picasso;
+import com.blaj.beercatalogue.reviews.service.ReviewService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,22 +66,22 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListViewHolder> im
     public BeerListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.beer_item, parent, false);
 
-        return new BeerListViewHolder(view, this);
+        return new BeerListViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BeerListViewHolder holder, int position) {
-        Beer crtBeer = beerListFiltered.get(position);
+        Beer beer = beerListFiltered.get(position);
 
-        Picasso.get().load(crtBeer.getPhoto()).into(holder.getBeerPhoto());
-        holder.getBeerName().setText("Name: " + crtBeer.getName());
-        holder.getBeerType().setText("Type: " + crtBeer.getType());
-        holder.getBeerRating().setRating(crtBeer.getRating());
+//        holder.getBeerPhoto().setImageBitmap(beer.getPhoto());
+        holder.getBeerName().setText("Name: " + beer.getName());
+        holder.getBeerType().setText("Type: " + beer.getType());
+        holder.getBeerRating().setRating(ReviewService.getBeerRating(beer.getName()));
 
         holder.itemView.setOnClickListener(l -> {
             Intent beerPage = new Intent(holder.itemView.getContext(), BeerActivity.class);
-            Beer foundBeer = beerList.stream().filter(beer -> beer.getName().equals(crtBeer.getName())).findFirst().orElse(null);
+            Beer foundBeer = beerList.stream().filter(b -> b.getName().equals(beer.getName())).findFirst().orElse(null);
             beerPage.putExtra("beer_id", beerList.indexOf(foundBeer));
 
             holder.itemView.getContext().startActivity(beerPage);
@@ -91,10 +91,6 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListViewHolder> im
     @Override
     public int getItemCount() {
         return beerListFiltered.size();
-    }
-
-    public List<Beer> getBeerList() {
-        return beerListFiltered;
     }
 
     @Override

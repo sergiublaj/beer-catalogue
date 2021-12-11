@@ -1,19 +1,17 @@
 package com.blaj.beercatalogue.beerlist.model;
 
-import android.net.Uri;
+import android.graphics.Bitmap;
 
 public class Beer {
     private final String name;
-    private final Uri photo;
-    private final float rating;
+    private final Bitmap photo;
     private final String country;
     private final String type;
     private final String storage;
 
-    public Beer(String name, Uri photo, float rating, String country, String type, String storage) {
+    public Beer(String name, Bitmap photo, String country, String type, String storage) {
         this.name = name;
         this.photo = photo;
-        this.rating = rating;
         this.country = country;
         this.type = type;
         this.storage = storage;
@@ -23,12 +21,8 @@ public class Beer {
         return name;
     }
 
-    public Uri getPhoto() {
+    public Bitmap getPhoto() {
         return photo;
-    }
-
-    public float getRating() {
-        return rating;
     }
 
     public String getCountry() {
@@ -41,17 +35,5 @@ public class Beer {
 
     public String getStorage() {
         return storage;
-    }
-
-    @Override
-    public String toString() {
-        return "Beer{" +
-                "name='" + name + '\'' +
-                ", photo=" + photo +
-                ", rating=" + rating +
-                ", country='" + country + '\'' +
-                ", type='" + type + '\'' +
-                ", storage='" + storage + '\'' +
-                '}';
     }
 }

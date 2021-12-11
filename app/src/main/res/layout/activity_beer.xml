@@ -10,21 +10,25 @@
         android:id="@+id/beeritem_reviews_title"
         android:layout_width="382dp"
         android:layout_height="43dp"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-black"
+        android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="26sp"
+        android:translationY="-25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="415dp"
-        android:layout_height="235dp"
+        android:layout_height="290dp"
         android:transformPivotX="5dp"
+        android:translationY="-40dp"
         app:cardBackgroundColor="#7fffffff"
         app:cardCornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,69 +38,101 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
-            android:id="@+id/beeritem_photo"
+            android:id="@+id/beer_photo"
             android:layout_width="123dp"
             android:layout_height="229dp"
             android:translationX="20dp"
-            app:srcCompat="@drawable/ic_menu_camera" />
+            android:translationY="50dp"
+            app:srcCompat="@drawable/ic_menu_camera"
+            tools:srcCompat="@drawable/ic_menu_camera" />
 
         <TextView
-            android:id="@+id/beeritem_name"
+            android:id="@+id/beer_name"
             android:layout_width="245dp"
-            android:layout_height="39dp"
+            android:layout_height="40dp"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:translationX="150dp"
-            android:translationY="10dp" />
+            android:translationY="55dp" />
 
         <TextView
-            android:id="@+id/beeritem_type"
+            android:id="@+id/beer_type"
             android:layout_width="245dp"
-            android:layout_height="39dp"
+            android:layout_height="40dp"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:translationX="150dp"
-            android:translationY="50dp" />
+            android:translationY="100dp" />
 
         <TextView
-            android:id="@+id/beeritem_rating_text"
+            android:id="@+id/beer_rating_text"
             android:layout_width="70dp"
-            android:layout_height="39dp"
+            android:layout_height="40dp"
             android:text="@string/beer_rating_text"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:translationX="150dp"
-            android:translationY="90dp" />
+            android:translationY="145dp" />
 
         <RatingBar
-            android:id="@+id/beeritem_rating"
+            android:id="@+id/beer_rating"
             android:layout_width="240dp"
             android:layout_height="43dp"
             android:isIndicator="true"
             android:numStars="5"
             android:scaleX="0.7"
             android:scaleY="0.7"
-            android:translationX="180dp"
-            android:translationY="80dp" />
+            android:translationX="185dp"
+            android:translationY="137dp" />
 
         <TextView
-            android:id="@+id/beeritem_country"
+            android:id="@+id/beer_country"
             android:layout_width="245dp"
-            android:layout_height="39dp"
+            android:layout_height="40dp"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:translationX="150dp"
-            android:translationY="130dp" />
+            android:translationY="190dp" />
 
         <TextView
-            android:id="@+id/beeritem_storage"
+            android:id="@+id/beer_storage"
             android:layout_width="245dp"
-            android:layout_height="39dp"
+            android:layout_height="40dp"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:translationX="150dp"
-            android:translationY="170dp" />
+            android:translationY="235dp" />
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/beer_reviewlist"
+        android:layout_width="409dp"
+        android:layout_height="415dp"
+        android:translationY="-15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beeritem_reviews_title"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:onClick="addReview"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.926"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.949"
+        app:maxImageSize="56dp"
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.blaj.beercatalogue.beerlist.repository;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 
 import com.blaj.beercatalogue.accounts.ui.UserActivity;
@@ -28,7 +30,9 @@ public class BeerRepository {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                fetchBeers((Map<String, HashMap<String, String>>) Objects.requireNonNull(dataSnapshot.getValue()));
+                if (dataSnapshot.getValue() == null) return;
+
+                fetchBeers((Map<String, HashMap<String, String>>) dataSnapshot.getValue());
             }
 
             @Override
@@ -38,21 +42,27 @@ public class BeerRepository {
     }
 
     private void fetchBeers(Map<String, HashMap<String, String>> beers) {
-        for (Map.Entry<String, HashMap<String, String>> entry : beers.entrySet()){
+        for (Map.Entry<String, HashMap<String, String>> entry : beers.entrySet()) {
             Map<String, String> entryMap = entry.getValue();
 
-            String name = entryMap.get("name");
-            float rating = Float.parseFloat(Objects.requireNonNull(entryMap.get("rating")));
-            String country = entryMap.get("country");
-            String type = entryMap.get("type");
-            String storage = entryMap.get("storage");
-
             StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-            StorageReference fileReference = storageReference.child("beers/" + Objects.requireNonNull(name).toLowerCase() + ".png");
+            StorageReference fileReference = storageReference.child("beers/" + Objects.requireNonNull(entryMap.get("name")).toLowerCase() + ".png");
             fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                Beer crtBeer = new Beer(name, uri, rating, country, type, storage);
+//                try {
+                String name = entryMap.get("name");
+                String country = entryMap.get("country");
+                String type = entryMap.get("type");
+                String storage = entryMap.get("storage");
 
-                beerList.add(crtBeer);
+//                    Bitmap photo = Picasso.get().load(uri).get();
+                Bitmap photo = null;
+
+                Beer beer = new Beer(name, photo, country, type, storage);
+
+                beerList.add(beer);
+/*                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
             });
         }
     }
