@@ -2,9 +2,11 @@ package com.blaj.beercatalogue.beerlist.ui;
 
 import android.annotation.SuppressLint;
 import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.blaj.beercatalogue.reviews.model.Review;
 import com.blaj.beercatalogue.reviews.repository.ReviewRepository;
 import com.blaj.beercatalogue.reviews.service.ReviewListAdapter;
 import com.blaj.beercatalogue.reviews.service.ReviewService;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.List;
@@ -52,7 +55,7 @@ public class BeerActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void fillBeerDetails() {
-//        ((ImageView) findViewById(R.id.beer_photo)).setImageBitmap(beer.getPhoto());
+        Picasso.get().load(Uri.parse(beer.getPhoto())).into((ImageView) findViewById(R.id.beer_photo));
         ((TextView) findViewById(R.id.beer_name)).setText("Name: " + beer.getName());
         ((TextView) findViewById(R.id.beer_type)).setText("Type: " + beer.getType());
         ((RatingBar) findViewById(R.id.beer_rating)).setRating(ReviewService.getBeerRating(beer.getName()));

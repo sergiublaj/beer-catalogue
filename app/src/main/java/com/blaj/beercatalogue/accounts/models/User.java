@@ -1,14 +1,12 @@
 package com.blaj.beercatalogue.accounts.models;
 
-import android.graphics.Bitmap;
-
 public class User {
     private final String id;
     private final String username;
     private final String email;
-    private Bitmap photo;
+    private final String photo;
 
-    public User(String id, String username, String email, Bitmap photo) {
+    public User(String id, String username, String email, String photo) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -27,11 +25,7 @@ public class User {
         return email;
     }
 
-    public Bitmap getPhoto() {
+    public String getPhoto() {
         return photo;
-    }
-
-    public void setPhoto(Bitmap photo) {
-        this.photo = photo;
     }
 }

@@ -24,6 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -38,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
 
-    private Uri userPhoto;
+    private Uri localPhoto;
     private ActivityResultLauncher<String> mGetContent;
 
     @Override
@@ -58,7 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
                 .getEditText()).setInputType(InputType.TYPE_NULL);
 
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-                uri -> userPhoto = uri);
+                uri -> {
+                    localPhoto = uri;
+                    Objects.requireNonNull(((TextInputLayout) findViewById(R.id.register_photo)).getEditText()).setText(uri.toString());
+                });
     }
 
     public void setBirthdate(View view) {
@@ -87,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText usernameField = ((TextInputLayout) findViewById(R.id.register_username)).getEditText();
         EditText emailField = ((TextInputLayout) findViewById(R.id.register_email)).getEditText();
         EditText birthdateField = ((TextInputLayout) findViewById(R.id.register_birthdate)).getEditText();
+        EditText photoField = ((TextInputLayout) findViewById(R.id.register_photo)).getEditText();
         EditText passwordField = ((TextInputLayout) findViewById(R.id.register_password)).getEditText();
 
         String username = Objects.requireNonNull(usernameField).getText().toString().trim();
@@ -117,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
             Date birthDate = dateFormat.parse(birthdate);
             Period period = Period.between(birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
 
-            if (period.getYears() < 18 || period.getMonths() < Calendar.MONTH + 1 || period.getDays() < Calendar.DAY_OF_MONTH) {
+            if (period.getYears() < 18 || period.getYears() == 18 && (period.getMonths() < Calendar.MONTH + 1 || period.getDays() < Calendar.DAY_OF_MONTH)) {
                 birthdateField.setError("You must be over 18!");
                 birthdateField.requestFocus();
                 return;
@@ -142,38 +147,44 @@ public class RegisterActivity extends AppCompatActivity {
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-                    progressBar.setVisibility(View.GONE);
-
                     if (!task.isSuccessful()) {
                         Toast.makeText(RegisterActivity.this, "Failed to register!", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    FirebaseUser loggedUser = FirebaseAuth.getInstance().getCurrentUser();
-                    User user = new User(Objects.requireNonNull(loggedUser).getUid(), username, email, null);
-                    FirebaseDatabase.getInstance(UserActivity.DATABASE_URL).getReference("Users")
-                            .child(Objects.requireNonNull(loggedUser).getUid())
-                            .setValue(user).addOnCompleteListener(task2 -> {
-
+                    FirebaseStorage.getInstance().getReference().child("users/" + username + ".png")
+                            .putFile(localPhoto).addOnCompleteListener(task2 -> {
                         if (!task2.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "Failed to register!", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-//                        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-//                        StorageReference fileReference = storageReference.child("users/" + username + ".png");
-//                        fileReference.putFile(userPhoto);
-//
-//                        try {
-//                            Bitmap photo = Picasso.get().load(userPhoto).get();
-//                            user.setPhoto(photo);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
+                        FirebaseUser loggedUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                        Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-                        firebaseAuth.signInWithEmailAndPassword(email, password);
-                        startActivity(new Intent(this.getApplicationContext(), UserActivity.class));
+                        FirebaseStorage.getInstance().getReference().child("users/" + username + ".png")
+                                .getDownloadUrl().addOnSuccessListener(uri -> {
+                            User user = new User(Objects.requireNonNull(loggedUser).getUid(), username, email, uri.toString());
+                            FirebaseDatabase.getInstance(UserActivity.DATABASE_URL).getReference("Users")
+                                    .child(Objects.requireNonNull(loggedUser).getUid())
+                                    .setValue(user).addOnCompleteListener(task3 -> {
+
+                                if (!task2.isSuccessful()) {
+                                    Toast.makeText(RegisterActivity.this, "Failed to register!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                usernameField.setText("");
+                                emailField.setText("");
+                                birthdateField.setText("");
+                                Objects.requireNonNull(photoField).setText("");
+                                passwordField.setText("");
+
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+                                firebaseAuth.signInWithEmailAndPassword(email, password);
+                                startActivity(new Intent(this.getApplicationContext(), UserActivity.class));
+                            });
+                        });
                     });
                 });
     }

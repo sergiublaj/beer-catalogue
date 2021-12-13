@@ -1,6 +1,7 @@
 package com.blaj.beercatalogue.reviews.service;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.blaj.beercatalogue.accounts.repository.UserRepository;
 import com.blaj.beercatalogue.beerlist.model.Beer;
 import com.blaj.beercatalogue.beerlist.repository.BeerRepository;
 import com.blaj.beercatalogue.reviews.model.Review;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Objects;
@@ -47,16 +49,16 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListViewHolder
         Beer beer = BeerRepository.getInstance().getBeerList().stream().filter(b -> b.getName().equals(review.getBeer())).findFirst().orElse(null);
 
         if (reviewType == USER_REVIEW) {
-            // holder.getReviewPhoto().setImageBitmap(Objects.requireNonNull(beer).getPhoto());
+            Picasso.get().load(Uri.parse(Objects.requireNonNull(beer).getPhoto())).into(holder.getReviewPhoto());
             holder.getReviewTitle().setText(Objects.requireNonNull(beer).getName());
         } else {
-            // holder.getReviewPhoto().setImageBitmap(Objects.requireNonNull(user).getPhoto());
+            Picasso.get().load(Uri.parse(Objects.requireNonNull(user).getPhoto())).into(holder.getReviewPhoto());
             holder.getReviewTitle().setText(Objects.requireNonNull(user).getUsername() + "'s review");
         }
 
         holder.getReviewRating().setRating(Float.parseFloat(review.getRating()));
         holder.getReviewDate().setText("Date: " + review.getDate());
-        holder.getReviewComment().setText(review.getComment());
+        holder.getReviewComment().setText("\"" + review.getComment() + "\"");
     }
 
     @Override

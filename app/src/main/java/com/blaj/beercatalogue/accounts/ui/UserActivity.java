@@ -24,7 +24,7 @@ public class UserActivity extends AppCompatActivity {
     public static final String DATABASE_URL = "https://beercatalogue-f128c-default-rtdb.europe-west1.firebasedatabase.app";
 
     private AppBarConfiguration mAppBarConfiguration;
-    public static BeerListAdapter beerListAdapter = new BeerListAdapter(BeerRepository.getInstance().getBeerList());
+    public static final BeerListAdapter beerListAdapter = new BeerListAdapter(BeerRepository.getInstance().getBeerList());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

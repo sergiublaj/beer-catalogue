@@ -2,6 +2,8 @@ package com.blaj.beercatalogue.beerlist.service;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +11,14 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blaj.beercatalogue.R;
 import com.blaj.beercatalogue.beerlist.model.Beer;
 import com.blaj.beercatalogue.beerlist.ui.BeerActivity;
 import com.blaj.beercatalogue.reviews.service.ReviewService;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +28,8 @@ import java.util.stream.Collectors;
 public class BeerListAdapter extends RecyclerView.Adapter<BeerListViewHolder> implements Filterable {
     private final List<Beer> beerList;
     private final List<Beer> beerListFiltered;
-    private final Filter filter = initializeFilter();
+    private Filter filter;
+    private LinearLayoutManager layoutManager;
 
     public BeerListAdapter(List<Beer> beerList) {
         this.beerList = beerList;
@@ -37,7 +42,7 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListViewHolder> im
             protected FilterResults performFiltering(CharSequence constraint) {
                 List<Beer> filteredList;
 
-                if (constraint == null || constraint.toString().isEmpty()) {
+                if (TextUtils.isEmpty(constraint)) {
                     filteredList = new ArrayList<>(beerList);
                 } else {
                     filteredList = beerList.stream().filter(beer -> beer.getName().toLowerCase()
@@ -57,6 +62,7 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListViewHolder> im
                 beerListFiltered.addAll((Collection<? extends Beer>) results.values);
 
                 notifyDataSetChanged();
+                layoutManager.scrollToPosition(0);
             }
         };
     }
@@ -72,9 +78,9 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListViewHolder> im
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BeerListViewHolder holder, int position) {
-        Beer beer = beerListFiltered.get(position);
+        Beer beer = filter == null ? beerList.get(position) : beerListFiltered.get(position);
 
-//        holder.getBeerPhoto().setImageBitmap(beer.getPhoto());
+        Picasso.get().load(Uri.parse(beer.getPhoto())).into(holder.getBeerPhoto());
         holder.getBeerName().setText("Name: " + beer.getName());
         holder.getBeerType().setText("Type: " + beer.getType());
         holder.getBeerRating().setRating(ReviewService.getBeerRating(beer.getName()));
@@ -90,11 +96,23 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListViewHolder> im
 
     @Override
     public int getItemCount() {
+        if (filter == null) {
+            return beerList.size();
+        }
+
         return beerListFiltered.size();
     }
 
     @Override
     public Filter getFilter() {
+        if (filter == null) {
+            filter = initializeFilter();
+        }
+
         return filter;
+    }
+
+    public void setLayoutManager(LinearLayoutManager layoutManager) {
+        this.layoutManager = layoutManager;
     }
 }

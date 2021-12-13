@@ -1,27 +1,25 @@
 package com.blaj.beercatalogue.beerlist.model;
 
-import android.graphics.Bitmap;
-
 public class Beer {
     private final String name;
-    private final Bitmap photo;
     private final String country;
     private final String type;
     private final String storage;
+    private final String photo;
 
-    public Beer(String name, Bitmap photo, String country, String type, String storage) {
+    public Beer(String name, String country, String type, String storage, String photo) {
         this.name = name;
-        this.photo = photo;
         this.country = country;
         this.type = type;
         this.storage = storage;
+        this.photo = photo;
     }
 
     public String getName() {
         return name;
     }
 
-    public Bitmap getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 

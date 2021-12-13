@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.blaj.beercatalogue.accounts.ui.UserActivity;
+import com.blaj.beercatalogue.reviews.businesslogic.ReviewSorter;
 import com.blaj.beercatalogue.reviews.model.Review;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +33,8 @@ public class ReviewRepository {
                 if (dataSnapshot.getValue() == null) return;
 
                 fetchReviews((Map<String, HashMap<String, String>>) dataSnapshot.getValue());
+
+                reviewList.sort(new ReviewSorter());
             }
 
             @Override
@@ -65,6 +68,8 @@ public class ReviewRepository {
 
     public void addReview(Review review, Context context) {
         reviewList.add(review);
+
+        reviewList.sort(new ReviewSorter());
 
         FirebaseDatabase.getInstance(UserActivity.DATABASE_URL).getReference("Reviews")
                 .child(UUID.randomUUID().toString())

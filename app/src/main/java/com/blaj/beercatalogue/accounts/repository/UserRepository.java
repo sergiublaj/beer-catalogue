@@ -1,7 +1,5 @@
 package com.blaj.beercatalogue.accounts.repository;
 
-import android.graphics.Bitmap;
-
 import androidx.annotation.NonNull;
 
 import com.blaj.beercatalogue.accounts.models.User;
@@ -13,7 +11,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,22 +43,14 @@ public class UserRepository {
         for (Map.Entry<String, HashMap<String, String>> entry : beers.entrySet()) {
             Map<String, String> entryMap = entry.getValue();
 
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-            StorageReference fileReference = storageReference.child("users/" + Objects.requireNonNull(entryMap.get("username")).toLowerCase() + ".png");
-            fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-//                try {
-                    String id = entryMap.get("id");
-                    String name = entryMap.get("username");
-                    String email = entryMap.get("email");
-//                    Bitmap photo = Picasso.get().load(uri).get();
-                    Bitmap photo = null;
+            FirebaseStorage.getInstance().getReference().child("users/" + Objects.requireNonNull(entryMap.get("username")).toLowerCase() + ".png")
+                    .getDownloadUrl().addOnSuccessListener(uri -> {
+                String id = entryMap.get("id");
+                String name = entryMap.get("username");
+                String email = entryMap.get("email");
 
-                    User user = new User(id, name, email, photo);
-
-                    userList.add(user);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                User user = new User(id, name, email, uri.toString());
+                userList.add(user);
             });
         }
     }

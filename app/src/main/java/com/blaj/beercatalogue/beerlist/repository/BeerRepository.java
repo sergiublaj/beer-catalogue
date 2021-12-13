@@ -1,7 +1,5 @@
 package com.blaj.beercatalogue.beerlist.repository;
 
-import android.graphics.Bitmap;
-
 import androidx.annotation.NonNull;
 
 import com.blaj.beercatalogue.accounts.ui.UserActivity;
@@ -48,21 +46,13 @@ public class BeerRepository {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference();
             StorageReference fileReference = storageReference.child("beers/" + Objects.requireNonNull(entryMap.get("name")).toLowerCase() + ".png");
             fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-//                try {
                 String name = entryMap.get("name");
                 String country = entryMap.get("country");
                 String type = entryMap.get("type");
                 String storage = entryMap.get("storage");
 
-//                    Bitmap photo = Picasso.get().load(uri).get();
-                Bitmap photo = null;
-
-                Beer beer = new Beer(name, photo, country, type, storage);
-
+                Beer beer = new Beer(name, country, type, storage, uri.toString());
                 beerList.add(beer);
-/*                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
             });
         }
     }

@@ -1,6 +1,7 @@
 package com.blaj.beercatalogue.accounts.ui;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.blaj.beercatalogue.databinding.FragmentProfileBinding;
 import com.blaj.beercatalogue.reviews.model.Review;
 import com.blaj.beercatalogue.reviews.repository.ReviewRepository;
 import com.blaj.beercatalogue.reviews.service.ReviewListAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +52,7 @@ public class ProfileFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void fillUserDetails() {
-        binding.profilePhoto.setImageBitmap(user.getPhoto());
+        Picasso.get().load(Uri.parse(user.getPhoto())).into(binding.profilePhoto);
         binding.profileName.setText("Name: " + user.getUsername());
         binding.profileEmail.setText("Email: " + user.getEmail());
         binding.profileProgressBar.setVisibility(View.GONE);

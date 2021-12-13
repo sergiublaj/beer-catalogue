@@ -19,15 +19,14 @@ public class BeerlistFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentBeerlistBinding.inflate(inflater, container, false);
 
-        RecyclerView beerListUI = binding.beerList;
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         BeerListAdapter beerListAdapter = UserActivity.beerListAdapter;
-
+        beerListAdapter.setLayoutManager(layoutManager);
+        RecyclerView beerListUI = binding.beerList;
         beerListUI.setAdapter(beerListAdapter);
-        beerListUI.setLayoutManager(new LinearLayoutManager(getContext()));
+        beerListUI.setLayoutManager(layoutManager);
 
         return binding.getRoot();
     }
