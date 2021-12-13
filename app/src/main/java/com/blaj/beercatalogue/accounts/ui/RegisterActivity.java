@@ -38,9 +38,14 @@ import java.util.Objects;
 public class RegisterActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
-
+    private EditText usernameField;
+    private EditText emailField;
+    private EditText birthdateField;
+    private EditText photoField;
+    private EditText passwordField;
     private Uri localPhoto;
     private ActivityResultLauncher<String> mGetContent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +66,30 @@ public class RegisterActivity extends AppCompatActivity {
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 uri -> {
                     localPhoto = uri;
-                    Objects.requireNonNull(((TextInputLayout) findViewById(R.id.register_photo)).getEditText()).setText(uri.toString());
+                    photoField.setText(uri.toString());
                 });
+
+        usernameField = ((TextInputLayout) findViewById(R.id.register_username)).getEditText();
+        emailField = ((TextInputLayout) findViewById(R.id.register_email)).getEditText();
+        birthdateField = ((TextInputLayout) findViewById(R.id.register_birthdate)).getEditText();
+        photoField = ((TextInputLayout) findViewById(R.id.register_photo)).getEditText();
+        passwordField = ((TextInputLayout) findViewById(R.id.register_password)).getEditText();
+
+        FirebaseAuth.getInstance().signOut();
     }
 
     public void setBirthdate(View view) {
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        if (!birthdateField.getText().toString().trim().isEmpty()) {
+            String[] currentBirthdate = birthdateField.getText().toString().split("/");
+            day = Integer.parseInt(currentBirthdate[0]);
+            month = Integer.parseInt(currentBirthdate[1]) - 1;
+            year = Integer.parseInt(currentBirthdate[2]);
+        }
 
         DatePickerDialog.OnDateSetListener onDateSetListener = (view1, year1, month1, day1) -> {
             month1++;
@@ -88,12 +108,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registerUser(View view) {
-        EditText usernameField = ((TextInputLayout) findViewById(R.id.register_username)).getEditText();
-        EditText emailField = ((TextInputLayout) findViewById(R.id.register_email)).getEditText();
-        EditText birthdateField = ((TextInputLayout) findViewById(R.id.register_birthdate)).getEditText();
-        EditText photoField = ((TextInputLayout) findViewById(R.id.register_photo)).getEditText();
-        EditText passwordField = ((TextInputLayout) findViewById(R.id.register_password)).getEditText();
-
         String username = Objects.requireNonNull(usernameField).getText().toString().trim();
         String email = Objects.requireNonNull(emailField).getText().toString().trim();
         String birthdate = Objects.requireNonNull(birthdateField).getText().toString().trim();
@@ -163,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         FirebaseStorage.getInstance().getReference().child("users/" + username + ".png")
                                 .getDownloadUrl().addOnSuccessListener(uri -> {
-                            User user = new User(Objects.requireNonNull(loggedUser).getUid(), username, email, uri.toString());
+                            User user = new User(Objects.requireNonNull(loggedUser).getUid(), username, email, birthdate, uri.toString());
                             FirebaseDatabase.getInstance(UserActivity.DATABASE_URL).getReference("Users")
                                     .child(Objects.requireNonNull(loggedUser).getUid())
                                     .setValue(user).addOnCompleteListener(task3 -> {
@@ -173,11 +187,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     return;
                                 }
 
-                                usernameField.setText("");
-                                emailField.setText("");
-                                birthdateField.setText("");
-                                Objects.requireNonNull(photoField).setText("");
-                                passwordField.setText("");
+                                clearFields();
 
                                 progressBar.setVisibility(View.GONE);
                                 Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
@@ -191,5 +201,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void proceedToLogin(View view) {
         startActivity(new Intent(this.getApplicationContext(), LoginActivity.class));
+    }
+
+    private void clearFields() {
+        usernameField.setText("");
+        emailField.setText("");
+        birthdateField.setText("");
+        Objects.requireNonNull(photoField).setText("");
+        passwordField.setText("");
     }
 }

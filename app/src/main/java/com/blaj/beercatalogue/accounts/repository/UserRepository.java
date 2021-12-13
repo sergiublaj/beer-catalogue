@@ -48,8 +48,9 @@ public class UserRepository {
                 String id = entryMap.get("id");
                 String name = entryMap.get("username");
                 String email = entryMap.get("email");
+                String birthdate = entryMap.get("birthdate");
 
-                User user = new User(id, name, email, uri.toString());
+                User user = new User(id, name, email, birthdate, uri.toString());
                 userList.add(user);
             });
         }

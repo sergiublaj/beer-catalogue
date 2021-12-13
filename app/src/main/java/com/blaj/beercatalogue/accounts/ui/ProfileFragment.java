@@ -55,6 +55,7 @@ public class ProfileFragment extends Fragment {
         Picasso.get().load(Uri.parse(user.getPhoto())).into(binding.profilePhoto);
         binding.profileName.setText("Name: " + user.getUsername());
         binding.profileEmail.setText("Email: " + user.getEmail());
+        binding.profileBirthdate.setText("Birthdate: " + user.getBirthdate());
         binding.profileProgressBar.setVisibility(View.GONE);
     }
 

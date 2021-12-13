@@ -18,7 +18,8 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
-    private FirebaseAuth firebaseAuth;
+    private EditText emailField;
+    private EditText passwordField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +29,13 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.login_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        emailField = ((TextInputLayout)findViewById(R.id.login_email)).getEditText();
+        passwordField = ((TextInputLayout)findViewById(R.id.login_password)).getEditText();
+
+        FirebaseAuth.getInstance().signOut();
     }
 
     public void loginUser(View view) {
-        EditText emailField = ((TextInputLayout)findViewById(R.id.login_email)).getEditText();
-        EditText passwordField = ((TextInputLayout)findViewById(R.id.login_password)).getEditText();
-
         String email = Objects.requireNonNull(emailField).getText().toString().trim();
         String password = Objects.requireNonNull(passwordField).getText().toString().trim();
 
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     progressBar.setVisibility(View.GONE);
 
@@ -67,8 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
 
-                    emailField.setText("");
-                    passwordField.setText("");
+                    clearFields();
 
                     Toast.makeText(LoginActivity.this, "Successfully logged in!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this.getApplicationContext(), UserActivity.class));
@@ -77,5 +77,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void proceedToRegister(View view) {
         startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
+    }
+
+    private void clearFields() {
+        emailField.setText("");
+        passwordField.setText("");
     }
 }

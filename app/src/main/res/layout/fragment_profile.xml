@@ -22,7 +22,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.cardview.widget.CardView
@@ -40,31 +39,41 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:translationX="130dp"
-            android:translationY="80dp"
+            android:translationY="70dp"
             app:srcCompat="@drawable/ic_menu_camera"
             tools:src="@tools:sample/avatars"
-            tools:srcCompat="@drawable/ic_menu_camera" />
+            tools:srcCompat="@drawable/ic_menu_camera"
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:id="@+id/profile_name"
             android:layout_width="400dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:translationX="5dp"
-            android:translationY="230dp" />
+            android:translationY="215dp" />
 
         <TextView
             android:id="@+id/profile_email"
             android:layout_width="400dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:translationX="5dp"
-            android:translationY="275dp" />
+            android:translationY="250dp" />
 
+        <TextView
+            android:id="@+id/profile_birthdate"
+            android:layout_width="400dp"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:translationX="5dp"
+            android:translationY="285dp" />
     </androidx.cardview.widget.CardView>
 
     <ProgressBar
